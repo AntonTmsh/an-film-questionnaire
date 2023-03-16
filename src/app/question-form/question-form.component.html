@@ -1,0 +1,40 @@
+<div class="ui raised segment">
+    <h2 class="ui header">Demo Form: Question</h2>
+    <form #questionForm="ngForm" (ngSubmit)="onSubmit(questionForm)" class="ui form">
+
+        <div class="field">
+            <label for="userNameInput">User Name</label>
+            <input type="text" 
+                id="userNameInput" 
+                placeholder="User Name" 
+                required 
+                minlength="3"
+                [(ngModel)] = "question.userName"
+                name="userName"
+                #userNameVar = "ngModel"/>
+        </div>
+
+        <div class="field">
+            <label>Film Title</label>
+            <select class="ui dropdown"
+                [(ngModel)] = "question.filmTitle"
+                name = "filmTitle">
+                <option value="">Select a Film...</option>
+                <option *ngFor = "let film of filmTitles"
+                        [value] = "film.title">{{film.title}}</option>
+            </select>
+        </div>
+        <div class="field">
+            <label>Your opinion about a film</label>
+            <div class="ui checkbox">               
+                <input id="likeFilm" 
+                type="checkbox"
+                name = "isLikeFilm"
+                [(ngModel)] = "question.likeFilm">
+                <label>I like this film</label>
+            </div>
+        </div>
+
+        <button type="submit" class="ui button">Submit</button>
+    </form>
+</div>

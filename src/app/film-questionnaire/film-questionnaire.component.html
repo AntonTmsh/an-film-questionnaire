@@ -1,0 +1,12 @@
+<div class="ui two column doubling stackable grid container">
+    <div class="column">
+        <app-question-form
+        (addQuestion)="onAddQuestion($event)">
+      </app-question-form>
+    </div>
+    <div class="column">
+        <app-question-list
+        [questions]="questions">
+      </app-question-list>
+    </div>
+</div>
