@@ -11,6 +11,9 @@ export class QuestionComponent {
   private _question!: Question;
 
   @Input()
+  public questionNumber : Number = 0;
+
+  @Input()
   get question(): Question {
     return this._question;
   };

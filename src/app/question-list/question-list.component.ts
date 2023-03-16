@@ -10,4 +10,7 @@ export class QuestionListComponent {
   
   @Input()
   questions!: Array<Question>;
+
+  @Input()
+  questionNumber : Number = 0;
 }

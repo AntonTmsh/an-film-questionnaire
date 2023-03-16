@@ -15,7 +15,9 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
   //filmTitles: Array<string> = ['Film1','Film2','Film3','Film4'];
 
   @Output() addQuestion: EventEmitter<Question> = new EventEmitter<Question>();
+  @Output() clearQuestions: EventEmitter<any> = new EventEmitter<any>();
 
+  private quesNumber : number = 0;
   private sub: Subscription | undefined;
   filmTitles :Array<FilmModel> | undefined;
   question: Question = new Question();
@@ -45,9 +47,16 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
       const question = new Question(
       this.question.userName,
       this.question.filmTitle,
-      this.question.likeFilm
+      this.question.likeFilm,
+      this.quesNumber++,
     );
 
     this.addQuestion.emit(question);
+  }
+
+  onClear() : void {
+    console.log('Clear all questions')
+    this.quesNumber = 0;
+    this.clearQuestions.emit();
   }
 }
