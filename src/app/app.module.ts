@@ -9,6 +9,8 @@ import { QuestionFormComponent } from './question-form/question-form.component';
 import { FilmQuestionnaireComponent } from './film-questionnaire/film-questionnaire.component';
 import { QuestionComponent } from './question/question.component';
 import { QuestionListComponent } from './question-list/question-list.component';
+import { QuestionDetailsComponent } from './question-details/question-details.component';
+import { OnChangesComponent } from './on-changes/on-changes.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { QuestionListComponent } from './question-list/question-list.component';
     QuestionFormComponent,
     FilmQuestionnaireComponent,
     QuestionComponent,
-    QuestionListComponent
+    QuestionListComponent,
+    QuestionDetailsComponent,
+    OnChangesComponent
   ],
   imports: [
     BrowserModule,

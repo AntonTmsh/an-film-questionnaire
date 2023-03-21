@@ -4,6 +4,7 @@ import { Question } from '../models/question.model';
 import { FilmDataService } from '../film-data.service'
 import { FilmModel } from '../models/film.model';
 import { Subscription } from 'rxjs';
+import { CommunicatorService } from '../communicator.service';
 
 @Component({
   selector: 'app-question-form',
@@ -14,15 +15,17 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
 
   //filmTitles: Array<string> = ['Film1','Film2','Film3','Film4'];
 
-  @Output() addQuestion: EventEmitter<Question> = new EventEmitter<Question>();
+  //@Output() addQuestion: EventEmitter<Question> = new EventEmitter<Question>();
   @Output() clearQuestions: EventEmitter<any> = new EventEmitter<any>();
 
   private quesNumber : number = 0;
   private sub: Subscription | undefined;
   filmTitles :Array<FilmModel> | undefined;
   question: Question = new Question();
+
   constructor(
-    public filmDataService : FilmDataService
+    private filmDataService : FilmDataService,
+    private communicatorService : CommunicatorService
   ) { }
 
   ngOnInit() {
@@ -34,15 +37,23 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
     this.sub?.unsubscribe();
   }
 
+  // onSubmit(questionForm: NgForm): void {
+  //   console.log('you submitted value:', questionForm);
+  //   console.log(`Saved: ${JSON.stringify(questionForm.value)}`);
+
+  //     const question = new Question(
+  //     this.question.userName,
+  //     this.question.filmTitle,
+  //     this.question.likeFilm,
+  //     this.quesNumber++,
+  //   );
+
+  //   this.addQuestion.emit(question);
+  // }
+
   onSubmit(questionForm: NgForm): void {
     console.log('you submitted value:', questionForm);
     console.log(`Saved: ${JSON.stringify(questionForm.value)}`);
-
-    // const question = new Question(
-    //   questionForm.value.userName,
-    //   questionForm.value.filmTitle,
-    //   questionForm.value.isLikeFilm
-    // );
 
       const question = new Question(
       this.question.userName,
@@ -50,8 +61,7 @@ export class QuestionFormComponent implements OnInit, OnDestroy{
       this.question.likeFilm,
       this.quesNumber++,
     );
-
-    this.addQuestion.emit(question);
+    this.communicatorService.publishData(question);
   }
 
   onClear() : void {

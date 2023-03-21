@@ -23,4 +23,8 @@ export class QuestionComponent {
     console.log('intercept input property changes w/ setter');
     this._question = value;
   }
+
+  onClick() : void {
+    console.log("onClick question");
+  }
 }

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, type OnInit, type OnDestroy} from '@angular/core';
 import { type Question } from '../models/question.model';
+import { type Subscription } from 'rxjs';
+import { CommunicatorService } from '../communicator.service';
 
 @Component({
   selector: 'app-film-questionnaire',
@@ -10,18 +12,41 @@ export class FilmQuestionnaireComponent {
   questions: Array<Question> = [];
   public questionNumber: Number = 0;
 
-  onAddQuestion(question: Question): void {
-    console.log('onAddTask method', question);
+  private sub!: Subscription;
 
-    let index = this.questions.findIndex(x => x.userName === question.userName);
-    if (index != -1){
-      this.questions[index] = question;
-    }
-    else{
-      this.questionNumber = this.questions.push(question);
-    }
-    
+  constructor(private communicatorService: CommunicatorService) {}
+
+  ngOnInit(): void {
+    this.sub = this.communicatorService.channel$.subscribe(
+      question => {
+        console.log('add question via CommunicatorService', question);
+
+        let index = this.questions.findIndex(x => x.userName === question.userName);
+        if (index != -1){
+          this.questions[index] = question;
+        }
+        else{
+          this.questionNumber = this.questions.push(question);
+        }
+      }
+    );
   }
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+  }
+
+  // onAddQuestion(question: Question): void {
+  //   console.log('onAddQuestion method', question);
+
+  //   let index = this.questions.findIndex(x => x.userName === question.userName);
+  //   if (index != -1){
+  //     this.questions[index] = question;
+  //   }
+  //   else{
+  //     this.questionNumber = this.questions.push(question);
+  //   }
+    
+  // }
 
   onClearQuestions(): void {
     this.questions = [];

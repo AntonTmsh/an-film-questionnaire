@@ -1,0 +1,14 @@
+<div class="ui raised segment">
+    <h2 class="ui header">Question Details</h2>
+    <div class="ui labeled input">
+        <div class="ui label">
+            Question Title
+        </div>
+        <input type="text" #questionField (keyup)="onSetValues(questionField)" value={{titleValue}}/>
+      </div>
+    <button class="ui button" routerLink="/home">
+        Back
+    </button>
+    <app-on-changes [questionField]="questionTitle" >
+    </app-on-changes>
+</div>

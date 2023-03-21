@@ -1,6 +1,6 @@
-<div class="ui segment">
+<div class="ui segment" [routerLink]="['/details']" [queryParams]="{ title: question.filmTitle} ">
     <div class="ui header" >Question: {{question.number}}</div>
-    <div class="ui list">
+    <div class="ui list" >
         <ul>
             <li>User Name: {{question.userName}}</li>
             <li>Film Title: {{question.filmTitle}}</li>
